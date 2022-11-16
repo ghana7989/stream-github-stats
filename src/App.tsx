@@ -4,7 +4,7 @@ import { Octokit } from '@octokit/rest';
 import { IGetUserResponse } from './types/github-user.types';
 import GithubCard, { IGithubCardProps } from './components/GithubCard';
 
-const TOKEN = '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';
+const TOKEN = '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';
 export const octokit = new Octokit({ auth: TOKEN });
 
 const fetchUsers = async (username: string) => {
