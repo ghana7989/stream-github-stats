@@ -3,7 +3,7 @@ import './App.css';
 import { IGetUserResponse } from './types/github-user.types';
 import GithubCard, { IGithubCardProps } from './components/GithubCard';
 
-function App() {
+function App({ div }: { div: HTMLDivElement }) {
 	const [userData, setUserData] = useState<IGithubCardProps | null>(null);
 
 	useEffect(() => {
@@ -16,9 +16,7 @@ function App() {
 
 			return data as IGetUserResponse;
 		};
-		const userName = document
-			.getElementById('github-stats-widget')
-			?.getAttribute('data-username');
+		const userName = div?.getAttribute('data-username');
 		(async function () {
 			if (!userName) return;
 			const data = await fetchUsers(userName);
