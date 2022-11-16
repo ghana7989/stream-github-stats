@@ -1,23 +1,21 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import { Octokit } from '@octokit/rest';
 import { IGetUserResponse } from './types/github-user.types';
 import GithubCard, { IGithubCardProps } from './components/GithubCard';
 
-const TOKEN = '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';
-export const octokit = new Octokit({ auth: TOKEN });
-
-const fetchUsers = async (username: string) => {
-	const { data } = await octokit.request('GET /users/{username}', {
-		username,
-	});
-	return data as IGetUserResponse;
-};
 function App() {
 	const [userData, setUserData] = useState<IGithubCardProps | null>(null);
 
 	useEffect(() => {
 		if (userData) return;
+		const fetchUsers = async (username: string) => {
+			const data = await fetch(`https://api.github.com/users/${username}`, {
+				method: 'GET',
+			}).then((res) => res.json());
+			console.log(data);
+
+			return data as IGetUserResponse;
+		};
 		const userName = document
 			.getElementById('github-stats-widget')
 			?.getAttribute('data-username');
